@@ -18,9 +18,6 @@ const MOCKDATA = [
   { id: "8", title: "Card 8" },
 ];
 
-const numColumns = 2;
-const screenWidth = Dimensions.get("window").width;
-const itemWidth = screenWidth / numColumns;
 
 const renderCard = ({ item }) => (
   <View style={styles.item}>
@@ -34,17 +31,14 @@ function RecipeCard() {
       data={MOCKDATA}
       renderItem={renderCard}
       keyExtractor={(item) => item.id}
-      numColumns={numColumns}
     />
   );
 }
 
 const styles = StyleSheet.create({
   item: {
-    width: itemWidth,
+    flex: 1,
     height: 200,
-    justifycontent: "center",
-    alignItems: "center",
     borderWidth: 1,
     borderColor: "gray",
   },

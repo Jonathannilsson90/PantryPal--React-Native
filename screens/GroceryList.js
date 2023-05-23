@@ -1,14 +1,14 @@
 import { View, Text } from "react-native";
 import CustomHeader from "../components/CustomHeader";
 function GroceryList() {
-    return (
-        <View style={{flex: 1}}>
-
-        <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+  return (
+    <View style={{ flex: 1 }}>
+      <CustomHeader />
+      <View style={{ flex: 1, justifyContent: "center", alignItems: "center" }}>
         <Text>GroceryList!</Text>
-        </View>
-        </View>
-      );
+      </View>
+    </View>
+  );
 }
 
-export default GroceryList
+export default GroceryList;
