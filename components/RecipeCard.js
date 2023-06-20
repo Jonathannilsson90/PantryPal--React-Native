@@ -2,45 +2,101 @@ import {
   View,
   Text,
   FlatList,
-  Dimensions,
   StyleSheet,
-  ScrollView,
+  Image,
+  Pressable,
 } from "react-native";
-import React from "react";
-const MOCKDATA = [
-  { id: "1", title: "Card 1" },
-  { id: "2", title: "Card 2" },
-  { id: "3", title: "Card 3" },
-  { id: "4", title: "Card 4" },
-  { id: "5", title: "Card 5" },
-  { id: "6", title: "Card 6" },
-  { id: "7", title: "Card 7" },
-  { id: "8", title: "Card 8" },
-];
+import React, { useEffect, useState } from "react";
+import api from "../api/Instance";
+import RecipeModal from "./RecipeModal";
+import TagFlatList from "./TagFlatList";
+const RecipeCard = () => {
+  const [modalVisible, setModalVisible] = useState(false)
+  const [selectedRecipe, setSelectedRecipe] = useState(null)
+  const [recipes, setRecipes] = useState([]);
+  const getRecipes = async () => {
+    try {
+      const response = await api.get("/api/recipes");
+      setRecipes(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
+  useEffect(() => {
+    getRecipes();
+  }, []);
 
-const renderCard = ({ item }) => (
-  <View style={styles.item}>
-    <Text>{item.title}</Text>
-  </View>
-);
-
-function RecipeCard() {
-  return (
-    <FlatList
-      data={MOCKDATA}
-      renderItem={renderCard}
-      keyExtractor={(item) => item.id}
-    />
-  );
+const handleRecipePress = (recipe) => {
+  setSelectedRecipe(recipe)
+  setModalVisible(true)
 }
 
+
+  const renderCard = ({ item }) => {
+    const words = item.text.split(" ");
+    const maxWords = 20;
+    const editedText = words.slice(0, maxWords).join(" ");
+
+    return (
+      <Pressable onPress={() => handleRecipePress(item)}>
+        <View style={styles.card}>
+          <View style={styles.imageWrapper}>
+            <Image source={{ uri: item.image }} style={styles.image} />
+          </View>
+          <View style={styles.contentWrapper}>
+            <Text style={styles.title}>{item.title}</Text>
+            <Text style={styles.text}>{editedText}...</Text>
+            <View style={styles.tagWrapper}>
+      <TagFlatList data={item.tags}></TagFlatList>
+            </View>
+          </View>
+        </View>
+      </Pressable>
+    );
+  };
+
+  return (
+    <>
+    <FlatList
+      data={recipes}
+      renderItem={renderCard}
+      keyExtractor={(item) => item._id}
+      contentContainerStyle={styles.flatListContent}
+      />
+      <RecipeModal
+      recipe={selectedRecipe}
+      visible={modalVisible}
+      onClose={() => setModalVisible(false)}
+      />
+      </>
+  );
+};
 const styles = StyleSheet.create({
-  item: {
+  card: {
+    flexDirection: "row",
+    marginVertical: 10,
+  },
+  imageWrapper: {
     flex: 1,
-    height: 200,
-    borderWidth: 1,
-    borderColor: "gray",
+  },
+  image: {
+    flex: 1,
+    resizeMode: "cover",
+  },
+  contentWrapper: {
+    flex: 2,
+    marginLeft: 10,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: "bold",
+  },
+  text: {
+    marginVertical: 5,
+  },
+  flatListContent: {
+    paddingHorizontal: 10,
   },
 });
 

@@ -19,7 +19,7 @@ function BottomTab() {
           ),
         }}
       />
-         <Tab.Screen
+      <Tab.Screen
         name="Grocery List"
         component={GroceryList}
         options={{
@@ -32,7 +32,7 @@ function BottomTab() {
           ),
         }}
       />
-    
+
       <Tab.Screen
         name="Saved recipes"
         component={MySavedRecipes}
@@ -56,7 +56,6 @@ function BottomTab() {
         }}
       />
     </Tab.Navigator>
-    
   );
 }
 export default BottomTab;

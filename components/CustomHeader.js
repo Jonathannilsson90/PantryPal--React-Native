@@ -48,7 +48,7 @@ function CustomHeader() {
           />
           <Pressable
             style={{
-              backgroundColor: "#87CEEB",
+              backgroundColor: "#90EE90",
               alignItems: "center",
               justifyContent: "center",
               width: 100,

@@ -1,17 +1,17 @@
-import { Text, View, StyleSheet } from "react-native";
+import { Text, SafeAreaView,View,StyleSheet } from "react-native";
 import CustomHeader from "../components/CustomHeader";
 import RecipeCard from "../components/RecipeCard";
 
 
 function HomeScreen() {
   return (
-    <View style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1 }}>
       <CustomHeader />
       <View>
         <Text style={styles.text} >New delicious recipes from trusted chefs!</Text>
         <RecipeCard />
       </View>
-    </View>
+    </SafeAreaView>
   );
 }
 

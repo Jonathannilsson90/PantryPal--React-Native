@@ -1,13 +1,13 @@
-import { Text, View } from "react-native"
+import { Text, SafeAreaView, View } from "react-native"
 import CustomHeader from "../components/CustomHeader";
 const MySavedRecipes = () => {
     return (
-      <View style={{flex: 1}}>
+      <SafeAreaView style={{flex: 1}}>
          <CustomHeader />
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
           <Text>MySavedRecipies!</Text>
         </View>
-        </View>
+        </SafeAreaView>
       );
 }
 
