@@ -10,10 +10,12 @@ import React, { useEffect, useState } from "react";
 import api from "../api/Instance";
 import RecipeModal from "./RecipeModal";
 import TagFlatList from "./TagFlatList";
+
 const RecipeCard = () => {
-  const [modalVisible, setModalVisible] = useState(false)
-  const [selectedRecipe, setSelectedRecipe] = useState(null)
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [recipes, setRecipes] = useState([]);
+
   const getRecipes = async () => {
     try {
       const response = await api.get("/api/recipes");
@@ -27,11 +29,14 @@ const RecipeCard = () => {
     getRecipes();
   }, []);
 
-const handleRecipePress = (recipe) => {
-  setSelectedRecipe(recipe)
-  setModalVisible(true)
-}
+  const handleRecipePress = (recipe) => {
+    setSelectedRecipe(recipe);
+    setModalVisible(true);
+  };
 
+  const handleCloseModal = () => {
+    setModalVisible(false);
+  };
 
   const renderCard = ({ item }) => {
     const words = item.text.split(" ");
@@ -47,9 +52,7 @@ const handleRecipePress = (recipe) => {
           <View style={styles.contentWrapper}>
             <Text style={styles.title}>{item.title}</Text>
             <Text style={styles.text}>{editedText}...</Text>
-            <View style={styles.tagWrapper}>
-      <TagFlatList data={item.tags}></TagFlatList>
-            </View>
+              <TagFlatList data={item.tags}></TagFlatList>
           </View>
         </View>
       </Pressable>
@@ -58,20 +61,23 @@ const handleRecipePress = (recipe) => {
 
   return (
     <>
-    <FlatList
-      data={recipes}
-      renderItem={renderCard}
-      keyExtractor={(item) => item._id}
-      contentContainerStyle={styles.flatListContent}
+      <FlatList
+        data={recipes}
+        renderItem={renderCard}
+        keyExtractor={(item) => item._id}
+        contentContainerStyle={styles.flatListContent}
       />
-      <RecipeModal
-      recipe={selectedRecipe}
-      visible={modalVisible}
-      onClose={() => setModalVisible(false)}
-      />
-      </>
+      {selectedRecipe && (
+        <RecipeModal
+          recipe={selectedRecipe}
+          visible={modalVisible}
+          onClose={handleCloseModal}
+        />
+      )}
+    </>
   );
 };
+
 const styles = StyleSheet.create({
   card: {
     flexDirection: "row",
