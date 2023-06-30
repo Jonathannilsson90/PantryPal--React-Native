@@ -1,28 +1,37 @@
-import { FlatList, StyleSheet, Text } from "react-native";
-const TagFlatList = ({data}) => {
-  return(
-  <FlatList
-    data={data}
-    renderItem={({ item }) => (
-      <Text style={[styles.tags, styles.tagItem]}>{item}</Text>
-    )}
-    keyExtractor={(item) => item.toString()}
-    horizontal
-  />
-  )
+import { FlatList, StyleSheet, Text, View } from "react-native";
+import React from "react";
+
+const TagFlatList = ({ data }) => {
+  return (
+    <View style={styles.container}>
+      <FlatList
+        data={data}
+        renderItem={({ item }) => (
+          <Text style={styles.tagItem}>{item}</Text>
+        )}
+        keyExtractor={(item, index) => index.toString()}
+        horizontal
+      />
+    </View>
+  );
 };
 
-export default TagFlatList;
-
-
 const styles = StyleSheet.create({
-      tagItem: {
-        flex: 1,
-        borderWidth: 1,
-        borderColor: "#000000",
-        padding: 5,
-        borderRadius: 5,
-        marginRight: 5,
-      },
+  container: {
+    marginTop: 10,
+    flexDirection: "row",
+    flexWrap: "wrap",
+  },
+  tagItem: {
+    borderWidth: 1,
+    borderColor: "purple",
+    padding: 5,
+    borderRadius: 5,
+    marginRight: 5,
+    backgroundColor: "purple",
+    color: "white",
+    fontWeight: "bold",
+  },
+});
 
-})
+export default TagFlatList;

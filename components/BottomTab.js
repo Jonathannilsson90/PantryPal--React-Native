@@ -25,7 +25,7 @@ function BottomTab() {
         options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons
-              name="note-edit"
+              name="playlist-edit"
               color={color}
               size={size}
             />
@@ -34,12 +34,12 @@ function BottomTab() {
       />
 
       <Tab.Screen
-        name="Saved recipes"
+        name="Liked recipes"
         component={MySavedRecipes}
         options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons
-              name="content-save-check"
+              name="cards-heart-outline"
               color={color}
               size={size}
             />

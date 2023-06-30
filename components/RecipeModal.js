@@ -1,15 +1,16 @@
-import React, { useState } from "react";
 import {
   View,
   Text,
   Modal,
-  Button,
   Image,
   StyleSheet,
   ScrollView,
   Pressable,
 } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import { GoBackButton } from "./GoBackButton";
+import TagFlatList from "./TagFlatList";
+import { IngredientMap } from "./IngredientsMap";
 
 const RecipeModal = ({ recipe, visible, onClose }) => {
   if (!recipe) {
@@ -21,22 +22,14 @@ const RecipeModal = ({ recipe, visible, onClose }) => {
       <ScrollView contentContainerStyle={styles.container}>
         <Text style={styles.title}>{recipe.title}</Text>
         <Image source={{ uri: recipe.image }} style={styles.image} />
-
         <Text style={styles.ingridentHeader}>Ingredients:</Text>
-        {recipe.ingredients.map((item, index) => (
-          <View key={index} style={styles.ingredientItem}>
-            <Text style={styles.amount}>{item.amount}</Text>
-            <Text>{item.ingredient}</Text>
-          </View>
-        ))}
-
+        <IngredientMap recipe={recipe} />
         <View style={styles.buttonWrapper}>
           <Pressable style={[styles.button, styles.moveIconToLeft]}>
             <Text style={styles.icon}>
               <MaterialCommunityIcons name="playlist-edit" size={40} />
             </Text>
           </Pressable>
-
           <Pressable style={styles.button}>
             <Text style={styles.icon}>
               <MaterialCommunityIcons name="cards-heart-outline" size={40} />
@@ -46,20 +39,9 @@ const RecipeModal = ({ recipe, visible, onClose }) => {
 
         <Text>{recipe.text}</Text>
         <Text>{recipe.instructions}</Text>
+        <TagFlatList data={recipe.tags}></TagFlatList>
 
-        <View style={styles.tagWrapper}>
-          {recipe.tags.map((tag, index) => (
-            <Text style={[styles.tags, styles.tagItem]} key={index}>
-              {tag}
-            </Text>
-          ))}
-        </View>
-        <Pressable
-          onPress={onClose}
-          style={[styles.button, styles.goBackButton]}
-        >
-          <Text style={styles.text}>Go back</Text>
-        </Pressable>
+        <GoBackButton onClose={onClose}></GoBackButton>
       </ScrollView>
     </Modal>
   );
@@ -69,13 +51,15 @@ export default RecipeModal;
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: "#D3D3D3",
     flexGrow: 1,
     paddingHorizontal: 20,
   },
   title: {
+    fontStyle: "italic",
     fontSize: 28,
     fontWeight: "bold",
-    color: "#90EE90",
+    color: "purple",
     textAlign: "center",
   },
   image: {
@@ -90,15 +74,7 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     textDecorationLine: "underline",
   },
-  ingredientItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 10,
-  },
-  amount: {
-    marginRight: 10,
-    fontWeight: "bold",
-  },
+
   buttonWrapper: {
     flexDirection: "row",
     justifyContent: "flex-end",
@@ -106,7 +82,7 @@ const styles = StyleSheet.create({
   },
   button: {
     alignItems: "center",
-    backgroundColor: "#90EE90",
+    backgroundColor: "purple",
     maxWidth: 140,
     height: 40,
     borderRadius: 5,
@@ -119,21 +95,5 @@ const styles = StyleSheet.create({
   },
   moveIconToLeft: {
     marginRight: 40,
-  },
-  tagWrapper: {
-    margintop: 10,
-    flexDirection: "row",
-  },
-  tagItem: {
-    backgroundColor: "#90EE90",
-    color: "white",
-    fontWeight: "bold",
-    padding: 5,
-    borderRadius: 5,
-    marginRight: 5,
-  },
-
-  goBackButton: {
-    textAlign: "center",
   },
 });

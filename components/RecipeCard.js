@@ -7,26 +7,17 @@ import {
   Pressable,
 } from "react-native";
 import React, { useEffect, useState } from "react";
-import api from "../api/Instance";
 import RecipeModal from "./RecipeModal";
 import TagFlatList from "./TagFlatList";
-
+import { getRecipes } from "../api/getRecipes";
 const RecipeCard = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [selectedRecipe, setSelectedRecipe] = useState(null);
   const [recipes, setRecipes] = useState([]);
 
-  const getRecipes = async () => {
-    try {
-      const response = await api.get("/api/recipes");
-      setRecipes(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   useEffect(() => {
-    getRecipes();
+    getRecipes(setRecipes);
   }, []);
 
   const handleRecipePress = (recipe) => {
