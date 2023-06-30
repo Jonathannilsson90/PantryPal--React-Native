@@ -1,41 +1,15 @@
-import {
-  View,
-  Text,
-  FlatList,
-  StyleSheet,
-  Image,
-  Pressable,
-} from "react-native";
-import React, { useEffect, useState } from "react";
-import RecipeModal from "./RecipeModal";
+import { View, Text, FlatList, StyleSheet, Image, Pressable } from "react-native";
+import React from "react";
 import TagFlatList from "./TagFlatList";
-import { getRecipes } from "../api/getRecipes";
-const RecipeCard = () => {
-  const [modalVisible, setModalVisible] = useState(false);
-  const [selectedRecipe, setSelectedRecipe] = useState(null);
-  const [recipes, setRecipes] = useState([]);
 
-
-  useEffect(() => {
-    getRecipes(setRecipes);
-  }, []);
-
-  const handleRecipePress = (recipe) => {
-    setSelectedRecipe(recipe);
-    setModalVisible(true);
-  };
-
-  const handleCloseModal = () => {
-    setModalVisible(false);
-  };
-
+const RecipeCard = ({ recipes, onPressRecipe }) => {
   const renderCard = ({ item }) => {
     const words = item.text.split(" ");
     const maxWords = 20;
     const editedText = words.slice(0, maxWords).join(" ");
 
     return (
-      <Pressable onPress={() => handleRecipePress(item)}>
+      <Pressable onPress={() => onPressRecipe(item)}>
         <View style={styles.card}>
           <View style={styles.imageWrapper}>
             <Image source={{ uri: item.image }} style={styles.image} />
@@ -43,7 +17,7 @@ const RecipeCard = () => {
           <View style={styles.contentWrapper}>
             <Text style={styles.title}>{item.title}</Text>
             <Text style={styles.text}>{editedText}...</Text>
-              <TagFlatList data={item.tags}></TagFlatList>
+            <TagFlatList data={item.tags} />
           </View>
         </View>
       </Pressable>
@@ -51,21 +25,12 @@ const RecipeCard = () => {
   };
 
   return (
-    <>
-      <FlatList
-        data={recipes}
-        renderItem={renderCard}
-        keyExtractor={(item) => item._id}
-        contentContainerStyle={styles.flatListContent}
-      />
-      {selectedRecipe && (
-        <RecipeModal
-          recipe={selectedRecipe}
-          visible={modalVisible}
-          onClose={handleCloseModal}
-        />
-      )}
-    </>
+    <FlatList
+      data={recipes}
+      renderItem={renderCard}
+      keyExtractor={(item) => item._id}
+      contentContainerStyle={styles.flatListContent}
+    />
   );
 };
 
