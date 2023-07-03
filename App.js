@@ -1,33 +1,39 @@
 import { StatusBar } from 'expo-status-bar';
 import BottomTab from './components/BottomTab';
 import { NavigationContainer } from '@react-navigation/native';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import { loadFonts } from './fonts';
+import { AuthContext, AuthProvider } from './Contexts/AuthContext';
+import LoginScreen from './screens/LoginScreen';
 
-export default function App() {
- 
-    const [fontsLoaded, setFontsLoaded] = useState(false);
-  
-    useEffect(() => {
-      const loadAsync = async () => {
-        await loadFonts();
-        setFontsLoaded(true);
-      };
-  
-      loadAsync();
-    }, []);
-  
-    if (!fontsLoaded) {
-      return null;
-    }
+const AppContent = () => {
+  const { accessToken } = useContext(AuthContext);
+  const [fontsLoaded, setFontsLoaded] = useState(false);
 
+  useEffect(() => {
+    const loadAsync = async () => {
+      await loadFonts();
+      setFontsLoaded(true);
+    };
+
+    loadAsync();
+  }, []);
+
+  if (!fontsLoaded) {
+    return null;
+  }
 
   return (
-
-<NavigationContainer>
-<BottomTab />
-</NavigationContainer>
-
+    <NavigationContainer>
+      {accessToken ? <BottomTab /> : <LoginScreen />}
+    </NavigationContainer>
   );
+};
 
-  }
+export default function App() {
+  return (
+    <AuthProvider>
+      <AppContent />
+    </AuthProvider>
+  );
+}

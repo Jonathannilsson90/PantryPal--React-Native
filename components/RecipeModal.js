@@ -8,7 +8,7 @@ import {
   Pressable,
 } from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { GoBackButton } from "./GoBackButton";
+import { GenericButton } from "./GenericButton";
 import TagFlatList from "./TagFlatList";
 import { IngredientMap } from "./IngredientsMap";
 
@@ -41,7 +41,7 @@ const RecipeModal = ({ recipe, visible, onClose }) => {
         <Text>{recipe.instructions}</Text>
         <TagFlatList data={recipe.tags}></TagFlatList>
 
-        <GoBackButton onClose={onClose}></GoBackButton>
+        <GenericButton label={"Go back"} onPress={onClose}></GenericButton>
       </ScrollView>
     </Modal>
   );

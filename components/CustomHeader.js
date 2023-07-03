@@ -1,9 +1,18 @@
 import { useState } from "react";
-import { View, Image, TextInput, Pressable, Modal, Text, StyleSheet } from "react-native";
+import {
+  View,
+  Image,
+  TextInput,
+  Pressable,
+  Modal,
+  Text,
+  StyleSheet,
+  SafeAreaView,
+} from "react-native";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import RecipeCard from "./RecipeCard";
 import api from "../api/Instance";
-
+import { GenericButton } from "./GenericButton";
 function CustomHeader() {
   const [modal, setModal] = useState(false);
   const [searchText, setSearchText] = useState("");
@@ -11,6 +20,10 @@ function CustomHeader() {
   const [error, setError] = useState(null);
 
   const handleSearch = async () => {
+    if (!searchText) {
+      return;
+    }
+
     try {
       const response = await api.get("/api/search", {
         params: { query: searchText },
@@ -18,13 +31,14 @@ function CustomHeader() {
       const recipes = response.data;
       setSearchResult(recipes);
       setError(null);
+      setSearchText("");
     } catch (error) {
       setError("No such recipe in our database");
     }
   };
 
   return (
-    <View
+    <SafeAreaView
       style={{
         backgroundColor: "#FFFFFF",
         flexDirection: "row",
@@ -46,7 +60,7 @@ function CustomHeader() {
       <Text style={{ fontFamily: "Yellowtail-Regular", fontSize: 30 }}>
         Pantry Pal{" "}
       </Text>
-      <Pressable onPress={() => setModal(true)} style={{}}>
+      <Pressable onPress={() => setModal(true)}>
         <MaterialCommunityIcons name="magnify" size={30} />
       </Pressable>
 
@@ -70,7 +84,7 @@ function CustomHeader() {
             value={searchText}
             onChangeText={setSearchText}
           />
-     
+
           <Pressable
             style={{
               backgroundColor: "white",
@@ -84,44 +98,32 @@ function CustomHeader() {
           >
             <Text style={{ fontWeight: "bold", color: "purple" }}>Search</Text>
           </Pressable>
-          <Pressable
-            style={{
-              backgroundColor: "white",
-              alignItems: "center",
-              justifyContent: "center",
-              width: 100,
-              height: 40,
-              borderRadius: 5,
-            }}
-            onPress={() => setModal(false)}
-          >
-            <Text style={{ fontWeight: "bold", color: "purple" }}>Go back</Text>
-          </Pressable>
         </View>
-       
+
         {error ? (
-<View style={styles.errorContainer}>
-  <Text style={styles.errorText}>{error}</Text>
-</View>
+          <View style={styles.errorContainer}>
+            <Text style={styles.errorText}>{error}</Text>
+          </View>
         ) : (
           <RecipeCard recipes={searchResult} />
         )}
+        <GenericButton label="Go back" onPress={() => setModal(false)} />
       </Modal>
-    </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-errorContainer: {
-flex: 10,
-justifyContent: "center",
-alignItems: "center"
-},
-errorText: {
-textAlign: "center",
-fontSize: 30,
-color: "purple"
-},
-})
+  errorContainer: {
+    flex: 10,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  errorText: {
+    textAlign: "center",
+    fontSize: 30,
+    color: "purple",
+  },
+});
 
 export default CustomHeader;

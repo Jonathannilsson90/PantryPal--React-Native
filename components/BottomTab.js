@@ -9,7 +9,9 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 const Tab = createBottomTabNavigator();
 function BottomTab() {
   return (
-    <Tab.Navigator screenOptions={{ header: () => null }}>
+    <Tab.Navigator
+      screenOptions={{ header: () => null, tabBarActiveTintColor: "purple" }}
+    >
       <Tab.Screen
         name="Home"
         component={HomeScreen}
