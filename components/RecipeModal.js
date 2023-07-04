@@ -17,6 +17,14 @@ const RecipeModal = ({ recipe, visible, onClose }) => {
     return null;
   }
 
+const handleLikedRecipe = () => {
+
+}
+const handleAddToGrocerylist = () => {
+
+}
+
+
   return (
     <Modal animationType="fade" visible={visible} onRequestClose={onClose}>
       <ScrollView contentContainerStyle={styles.container}>

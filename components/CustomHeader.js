@@ -13,17 +13,19 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import RecipeCard from "./RecipeCard";
 import api from "../api/Instance";
 import { GenericButton } from "./GenericButton";
+import RecipeModal from "./RecipeModal";
 function CustomHeader() {
   const [modal, setModal] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [searchResult, setSearchResult] = useState([]);
   const [error, setError] = useState(null);
-
+  const [selectedRecipe, setSelectedRecipe] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
   const handleSearch = async () => {
     if (!searchText) {
       return;
     }
-
+ 
     try {
       const response = await api.get("/api/search", {
         params: { query: searchText },
@@ -36,7 +38,14 @@ function CustomHeader() {
       setError("No such recipe in our database");
     }
   };
+  const handleRecipePress = (recipe) => {
+    setSelectedRecipe(recipe);
+    setModalVisible(true);
+  };
 
+  const handleCloseModal = () => {
+    setModalVisible(false);
+  };
   return (
     <SafeAreaView
       style={{
@@ -69,7 +78,7 @@ function CustomHeader() {
         visible={modal}
         onRequestClose={() => setModal(false)}
       >
-        <View style={{ flex: 1, flexDirection: "row" }}>
+        <View style={{ flexDirection: "row" }}>
           <TextInput
             placeholder="Search for your favorite meal"
             style={{
@@ -105,8 +114,15 @@ function CustomHeader() {
             <Text style={styles.errorText}>{error}</Text>
           </View>
         ) : (
-          <RecipeCard recipes={searchResult} />
+          <RecipeCard recipes={searchResult} onPressRecipe={handleRecipePress}  />
         )}
+         {selectedRecipe && (
+        <RecipeModal
+          recipe={selectedRecipe}
+          visible={modalVisible}
+          onClose={handleCloseModal}
+        />
+      )}
         <GenericButton label="Go back" onPress={() => setModal(false)} />
       </Modal>
     </SafeAreaView>
