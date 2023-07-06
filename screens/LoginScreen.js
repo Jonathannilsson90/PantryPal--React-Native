@@ -4,10 +4,11 @@ import api from "../api/Instance";
 import { AuthContext } from "../Contexts/AuthContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { GenericButton } from "../components/GenericButton";
-
+import { SignupModal } from "../components/SignupModal";
 const LoginScreen = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [modalVisible, setModalVisible] = useState(false)
   const { login } = useContext(AuthContext);
 
   const handleLogin = async () => {
@@ -24,6 +25,14 @@ const LoginScreen = () => {
       console.log(error);
     }
   };
+
+const handleSignup = () => {
+setModalVisible(true)
+}
+const handleCloseModal = () => {
+  setModalVisible(false)
+  }
+  
   return (
     <>
       <Image
@@ -52,10 +61,14 @@ const LoginScreen = () => {
       <View style={styles.buttonContainer}>
      <View style={styles.buttonWrapper}>
   <GenericButton label="Login" onPress={handleLogin} />
-  <GenericButton label="Sign-up" onPress={handleLogin} />
+  <GenericButton label="Sign-up" onPress={handleSignup} />
 </View>
       </View>
       </View>
+      <SignupModal
+      visible={modalVisible}
+      onClose={handleCloseModal}
+      />
     </>
   );
 };

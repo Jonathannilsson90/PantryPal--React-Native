@@ -14,6 +14,7 @@ import RecipeCard from "./RecipeCard";
 import api from "../api/Instance";
 import { GenericButton } from "./GenericButton";
 import RecipeModal from "./RecipeModal";
+import { ClearTextIcon } from "./ClearTextIcon";
 function CustomHeader() {
   const [modal, setModal] = useState(false);
   const [searchText, setSearchText] = useState("");
@@ -25,7 +26,7 @@ function CustomHeader() {
     if (!searchText) {
       return;
     }
- 
+
     try {
       const response = await api.get("/api/search", {
         params: { query: searchText },
@@ -93,6 +94,10 @@ function CustomHeader() {
             value={searchText}
             onChangeText={setSearchText}
           />
+          <ClearTextIcon
+            searchText={searchText}
+            setSearchText={setSearchText}
+          />
 
           <Pressable
             style={{
@@ -114,15 +119,18 @@ function CustomHeader() {
             <Text style={styles.errorText}>{error}</Text>
           </View>
         ) : (
-          <RecipeCard recipes={searchResult} onPressRecipe={handleRecipePress}  />
+          <RecipeCard
+            recipes={searchResult}
+            onPressRecipe={handleRecipePress}
+          />
         )}
-         {selectedRecipe && (
-        <RecipeModal
-          recipe={selectedRecipe}
-          visible={modalVisible}
-          onClose={handleCloseModal}
-        />
-      )}
+        {selectedRecipe && (
+          <RecipeModal
+            recipe={selectedRecipe}
+            visible={modalVisible}
+            onClose={handleCloseModal}
+          />
+        )}
         <GenericButton label="Go back" onPress={() => setModal(false)} />
       </Modal>
     </SafeAreaView>
