@@ -17,10 +17,11 @@ const LoginScreen = () => {
         username,
         password,
       });
-
+      console.log("Username:", username);
+      console.log("Password:", password);
       const { accessToken } = response.data;
       await AsyncStorage.setItem("accessToken", accessToken);
-      login(accessToken);
+      login(accessToken, username);
     } catch (error) {
       console.log(error);
     }

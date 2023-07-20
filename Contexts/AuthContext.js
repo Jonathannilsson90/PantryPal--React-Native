@@ -4,13 +4,14 @@ const AuthContext = createContext();
 
 const AuthProvider = ({children}) => {
     const [accessToken, setAccessToken] = useState("")
-    
     const login = (accessToken) => {
         setAccessToken(accessToken)
+    
     };
 
     const logout = () => {
         setAccessToken("");
+    
     };
 
     return(

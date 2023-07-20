@@ -11,19 +11,55 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import { GenericButton } from "./GenericButton";
 import TagFlatList from "./TagFlatList";
 import { IngredientMap } from "./IngredientsMap";
+import { useState, useContext } from "react";
+import { AuthContext } from "../Contexts/AuthContext";
+import axios from "axios";
 
 const RecipeModal = ({ recipe, visible, onClose }) => {
+  const [likedRecipe, setLikedRecipe] = useState(false);
+  const { accessToken } = useContext(AuthContext); // Access the accessToken from the context
+
   if (!recipe) {
     return null;
   }
 
-const handleLikedRecipe = () => {
+  const handleToggleLikedRecipe = async () => {
+    try {
+      setLikedRecipe(!likedRecipe);
 
-}
-const handleAddToGrocerylist = () => {
+      const apiUrl = likedRecipe
+        ? "http://192.168.10.157:5000/api/user/removeLiked"
+        : "http://192.168.10.157:5000/api/user/addLiked";
+      const response = await axios.put(
+        apiUrl,
+        { recipeId: recipe._id },
+        { headers: { Authorization: `Bearer ${accessToken}` } }
+      );
 
-}
+      console.log(response.data.message);
+    } catch (error) {
+      console.error("Error updating liked status:", error);
+      console.log("Full error response:", error.response);
+    }
+  };
 
+  const handleAddToGrocerylist = async () => {
+    try {
+      const response = await axios.post(
+        "http://192.168.10.157:5000/api/user/addToGroceryList",
+        {
+          ingredients: recipe.ingredients,
+          username: "jonathan",
+        },
+        {
+          headers: { Authorization: `Bearer ${accessToken}` },
+        }
+      );
+      // Rest of the code...
+    } catch (error) {
+      console.log("ERROR", error);
+    }
+  };
 
   return (
     <Modal animationType="fade" visible={visible} onRequestClose={onClose}>
@@ -33,14 +69,21 @@ const handleAddToGrocerylist = () => {
         <Text style={styles.ingridentHeader}>Ingredients:</Text>
         <IngredientMap recipe={recipe} />
         <View style={styles.buttonWrapper}>
-          <Pressable style={[styles.button, styles.moveIconToLeft]}>
+          <Pressable
+            style={[styles.button, styles.moveIconToLeft]}
+            onPress={handleAddToGrocerylist}
+          >
             <Text style={styles.icon}>
               <MaterialCommunityIcons name="playlist-edit" size={40} />
             </Text>
           </Pressable>
-          <Pressable style={styles.button}>
+
+          <Pressable style={styles.button} onPress={handleToggleLikedRecipe}>
             <Text style={styles.icon}>
-              <MaterialCommunityIcons name="cards-heart-outline" size={40} />
+              <MaterialCommunityIcons
+                name={likedRecipe ? "heart-off" : "cards-heart-outline"}
+                size={40}
+              />
             </Text>
           </Pressable>
         </View>

@@ -1,8 +1,8 @@
-import { Modal, Text, TextInput, StyleSheet, View, Alert } from "react-native";
+import { Modal, Text, TextInput, StyleSheet, View,} from "react-native";
 import { GenericButton } from "./GenericButton";
 import { useState } from "react";
 import api from "../api/Instance";
-import { useTheme } from "@react-navigation/native";
+
 
 export const SignupModal = ({ visible, onClose }) => {
   const [username, setUsername] = useState("");
