@@ -33,6 +33,12 @@ export const SignupModal = ({ visible, onClose }) => {
     }
   };
 
+const handleOnClose = () => {
+  setRegstrationSuccessful(false)
+  onClose();
+}
+
+
   return (
     <Modal visible={visible}>
       {registrationSuccessful ? (
@@ -73,7 +79,7 @@ export const SignupModal = ({ visible, onClose }) => {
         />
       <View style={styles.buttonContainer}>
         <View style={styles.buttonWrapper}>
-          <GenericButton label="Go back" onPress={onClose}></GenericButton>
+          <GenericButton label="Go back" onPress={handleOnClose}></GenericButton>
           <GenericButton label="Sign up" onPress={sendSignup}></GenericButton>
         </View>
       </View>
