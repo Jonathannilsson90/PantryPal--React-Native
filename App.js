@@ -1,4 +1,3 @@
-import { StatusBar } from 'expo-status-bar';
 import BottomTab from './components/BottomTab';
 import { NavigationContainer } from '@react-navigation/native';
 import React, { useEffect, useState, useContext } from 'react';
@@ -7,8 +6,17 @@ import { AuthContext, AuthProvider } from './Contexts/AuthContext';
 import LoginScreen from './screens/LoginScreen';
 
 const AppContent = () => {
-  const { accessToken } = useContext(AuthContext);
+  const { accessToken, username } = useContext(AuthContext);
   const [fontsLoaded, setFontsLoaded] = useState(false);
+  console.log("Context accessToken:", accessToken);
+  console.log("Context username:", username);
+  useEffect(() => {
+    if (accessToken && username) {
+      console.log(`Logged in as: ${username}`);
+    }
+  }, [accessToken, username]);
+
+
 
   useEffect(() => {
     const loadAsync = async () => {

@@ -17,12 +17,13 @@ import axios from "axios";
 
 const RecipeModal = ({ recipe, visible, onClose }) => {
   const [likedRecipe, setLikedRecipe] = useState(false);
-  const { accessToken } = useContext(AuthContext); // Access the accessToken from the context
-
+  const { accessToken, username } = useContext(AuthContext); // Access the accessToken from the context
+  console.log("Context accessToken:", accessToken);
+  console.log("Context username:", username);
   if (!recipe) {
     return null;
   }
-
+/* 
   const handleToggleLikedRecipe = async () => {
     try {
       setLikedRecipe(!likedRecipe);
@@ -39,23 +40,21 @@ const RecipeModal = ({ recipe, visible, onClose }) => {
       console.log(response.data.message);
     } catch (error) {
       console.error("Error updating liked status:", error);
-      console.log("Full error response:", error.response);
     }
   };
-
+ */
   const handleAddToGrocerylist = async () => {
     try {
       const response = await axios.post(
         "http://192.168.10.157:5000/api/user/addToGroceryList",
         {
           ingredients: recipe.ingredients,
-          username: "jonathan",
+          username: username,
         },
         {
           headers: { Authorization: `Bearer ${accessToken}` },
         }
       );
-      // Rest of the code...
     } catch (error) {
       console.log("ERROR", error);
     }
@@ -78,7 +77,7 @@ const RecipeModal = ({ recipe, visible, onClose }) => {
             </Text>
           </Pressable>
 
-          <Pressable style={styles.button} onPress={handleToggleLikedRecipe}>
+          <Pressable style={styles.button} /* onPress={handleToggleLikedRecipe} */>
             <Text style={styles.icon}>
               <MaterialCommunityIcons
                 name={likedRecipe ? "heart-off" : "cards-heart-outline"}

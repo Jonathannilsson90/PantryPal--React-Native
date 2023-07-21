@@ -3,8 +3,8 @@ import React from "react";
 import HomeScreen from "../screens/HomeScreen";
 import MyPage from "../screens/MyPage";
 import MySavedRecipes from "../screens/MySavedRecipies";
-import GroceryList from "../screens/GroceryList";
 import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
+import GroceryListScreen from "../screens/GroceryListScreen";
 
 const Tab = createBottomTabNavigator();
 function BottomTab() {
@@ -23,7 +23,7 @@ function BottomTab() {
       />
       <Tab.Screen
         name="Grocery List"
-        component={GroceryList}
+        component={GroceryListScreen}
         options={{
           tabBarIcon: ({ color, size }) => (
             <MaterialCommunityIcons

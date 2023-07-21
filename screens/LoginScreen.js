@@ -1,5 +1,13 @@
 import { useContext, useState } from "react";
-import { TextInput, View, StyleSheet, Button, Text, Image, SafeAreaView } from "react-native";
+import {
+  TextInput,
+  View,
+  StyleSheet,
+  Button,
+  Text,
+  Image,
+  SafeAreaView,
+} from "react-native";
 import api from "../api/Instance";
 import { AuthContext } from "../Contexts/AuthContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -8,7 +16,7 @@ import { SignupModal } from "../components/SignupModal";
 const LoginScreen = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [modalVisible, setModalVisible] = useState(false)
+  const [modalVisible, setModalVisible] = useState(false);
   const { login } = useContext(AuthContext);
 
   const handleLogin = async () => {
@@ -17,23 +25,24 @@ const LoginScreen = () => {
         username,
         password,
       });
-      console.log("Username:", username);
-      console.log("Password:", password);
-      const { accessToken } = response.data;
+
+      console.log("Response data:", response.data);
+
+      const { accessToken, username: responseUsername } = response.data;
       await AsyncStorage.setItem("accessToken", accessToken);
-      login(accessToken, username);
+      login(accessToken, responseUsername);
     } catch (error) {
       console.log(error);
     }
   };
 
-const handleSignup = () => {
-setModalVisible(true)
-}
-const handleCloseModal = () => {
-  setModalVisible(false)
-  }
-  
+  const handleSignup = () => {
+    setModalVisible(true);
+  };
+  const handleCloseModal = () => {
+    setModalVisible(false);
+  };
+
   return (
     <>
       <Image
@@ -59,17 +68,14 @@ const handleCloseModal = () => {
           value={password}
           onChangeText={setPassword}
         />
-      <View style={styles.buttonContainer}>
-     <View style={styles.buttonWrapper}>
-  <GenericButton label="Login" onPress={handleLogin} />
-  <GenericButton label="Sign-up" onPress={handleSignup} />
-</View>
+        <View style={styles.buttonContainer}>
+          <View style={styles.buttonWrapper}>
+            <GenericButton label="Login" onPress={handleLogin} />
+            <GenericButton label="Sign-up" onPress={handleSignup} />
+          </View>
+        </View>
       </View>
-      </View>
-      <SignupModal
-      visible={modalVisible}
-      onClose={handleCloseModal}
-      />
+      <SignupModal visible={modalVisible} onClose={handleCloseModal} />
     </>
   );
 };
@@ -108,11 +114,10 @@ const styles = StyleSheet.create({
     width: "50%",
     paddingHorizontal: 20,
   },
-  buttonContainer:{
+  buttonContainer: {
     alignItems: "center",
     marginTop: 10,
-  }
- 
+  },
 });
 
 export default LoginScreen;
