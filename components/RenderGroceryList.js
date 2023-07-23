@@ -5,8 +5,8 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 const RenderGroceryList = ({ groceryList, onRemoveItem }) => {
   const renderItem = ({ item }) => (
     <View style={styles.item}>
-      <Text>{item.amount}</Text>
-      <Text>{item.ingredient}</Text>
+      <Text style={styles.amountText}>{item.amount}</Text>
+      <Text style={styles.ingredientText}>{item.ingredient}</Text>
       <TouchableOpacity onPress={() => onRemoveItem(item._id)}>
         <MaterialCommunityIcons name="trash-can-outline" size={24} color="red" />
       </TouchableOpacity>
@@ -31,6 +31,17 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "#ccc",
   },
+  amountText:{
+    flex: 1,
+    fontSize: 16,
+    fontWeight: "bold",
+    textAlign: "left"
+  },
+  ingredientText: {
+    flex: 2,
+    fontSize: 16,
+    textAlign: "left"
+  }
 });
 
 export default RenderGroceryList;
