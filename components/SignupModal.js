@@ -51,8 +51,8 @@ const handleOnClose = () => {
           <Text style={styles.header}>
             To register please fill a username and password:
           </Text>
-        </>
-      )}
+        
+      
 
       <View style={styles.loginWrapper}>
         <Text style={styles.inputText}>Username:</Text>
@@ -77,13 +77,18 @@ const handleOnClose = () => {
           value={repeatedPassword}
           onChangeText={setRepeatedPassword}
         />
-      <View style={styles.buttonContainer}>
-        <View style={styles.buttonWrapper}>
+      </View>
+        </>
+        )}
+    <View style={styles.buttonContainer}>
+        <View style={styles.buttonWrapperContainer}>
+          <View style={styles.buttonWrapper}>
           <GenericButton label="Go back" onPress={handleOnClose}></GenericButton>
           <GenericButton label="Sign up" onPress={sendSignup}></GenericButton>
         </View>
+        </View>
       </View>
-      </View>
+      
     </Modal>
   );
 };
@@ -96,9 +101,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   loginWrapper: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
     paddingHorizontal: 20,
   },
   inputText: {
@@ -121,14 +123,20 @@ const styles = StyleSheet.create({
   buttonContainer: {
     alignItems: "center",
     marginTop: 10,
+    paddingTop: 20,
   },
-  error:{
-    color: "red"
+  buttonWrapperContainer: {
+    flexDirection: "column",
+    alignItems: "center",
   },
-  success:{
+  error: {
+    color: "red",
+    marginBottom: 10,
+  },
+  success: {
     color: "green",
     fontSize: 20,
     fontStyle: "italic",
     paddingHorizontal: 20,
-  }
+  },
 });

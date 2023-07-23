@@ -34,7 +34,6 @@ function CustomHeader() {
       const recipes = response.data;
       setSearchResult(recipes);
       setError(null);
-      setSearchText("");
     } catch (error) {
       setError("No such recipe in our database");
     }
