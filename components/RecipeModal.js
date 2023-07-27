@@ -13,40 +13,19 @@ import TagFlatList from "./TagFlatList";
 import { IngredientMap } from "./IngredientsMap";
 import { useState, useContext } from "react";
 import { AuthContext } from "../Contexts/AuthContext";
-import axios from "axios";
+import api from "../api/Instance";
 
 const RecipeModal = ({ recipe, visible, onClose }) => {
-  const [likedRecipe, setLikedRecipe] = useState(false);
-  const { accessToken, username } = useContext(AuthContext); // Access the accessToken from the context
-  console.log("Context accessToken:", accessToken);
-  console.log("Context username:", username);
+  const [addToGroceryList, setAddToGroceryList] = useState(false);
+  const { accessToken, username } = useContext(AuthContext);
   if (!recipe) {
     return null;
   }
-/* 
-  const handleToggleLikedRecipe = async () => {
-    try {
-      setLikedRecipe(!likedRecipe);
 
-      const apiUrl = likedRecipe
-        ? "http://192.168.10.157:5000/api/user/removeLiked"
-        : "http://192.168.10.157:5000/api/user/addLiked";
-      const response = await axios.put(
-        apiUrl,
-        { recipeId: recipe._id },
-        { headers: { Authorization: `Bearer ${accessToken}` } }
-      );
-
-      console.log(response.data.message);
-    } catch (error) {
-      console.error("Error updating liked status:", error);
-    }
-  };
- */
   const handleAddToGrocerylist = async () => {
     try {
-      const response = await axios.post(
-        "http://192.168.10.157:5000/api/user/addToGroceryList",
+      const response = await api.post(
+        "/api/user/addToGroceryList",
         {
           ingredients: recipe.ingredients,
           username: username,
@@ -55,10 +34,17 @@ const RecipeModal = ({ recipe, visible, onClose }) => {
           headers: { Authorization: `Bearer ${accessToken}` },
         }
       );
+      setAddToGroceryList(true);
     } catch (error) {
       console.log("ERROR", error);
     }
   };
+
+const handleResetIcons = () => {
+  setAddToGroceryList(false);
+  onClose()
+}
+
 
   return (
     <Modal animationType="fade" visible={visible} onRequestClose={onClose}>
@@ -73,14 +59,14 @@ const RecipeModal = ({ recipe, visible, onClose }) => {
             onPress={handleAddToGrocerylist}
           >
             <Text style={styles.icon}>
-              <MaterialCommunityIcons name="playlist-edit" size={40} />
+              <MaterialCommunityIcons name={addToGroceryList ? "playlist-check" : "playlist-edit" } size={40} />
             </Text>
           </Pressable>
 
-          <Pressable style={styles.button} /* onPress={handleToggleLikedRecipe} */>
+          <Pressable style={styles.button}>
             <Text style={styles.icon}>
               <MaterialCommunityIcons
-                name={likedRecipe ? "heart-off" : "cards-heart-outline"}
+                name={"cards-heart-outline"}
                 size={40}
               />
             </Text>
@@ -91,7 +77,7 @@ const RecipeModal = ({ recipe, visible, onClose }) => {
         <Text>{recipe.instructions}</Text>
         <TagFlatList data={recipe.tags}></TagFlatList>
 
-        <GenericButton label={"Go back"} onPress={onClose}></GenericButton>
+        <GenericButton label={"Go back"} onPress={handleResetIcons}></GenericButton>
       </ScrollView>
     </Modal>
   );

@@ -6,16 +6,8 @@ import { AuthContext, AuthProvider } from './Contexts/AuthContext';
 import LoginScreen from './screens/LoginScreen';
 
 const AppContent = () => {
-  const { accessToken, username } = useContext(AuthContext);
+  const { accessToken } = useContext(AuthContext);
   const [fontsLoaded, setFontsLoaded] = useState(false);
-  console.log("Context accessToken:", accessToken);
-  console.log("Context username:", username);
-  useEffect(() => {
-    if (accessToken && username) {
-      console.log(`Logged in as: ${username}`);
-    }
-  }, [accessToken, username]);
-
 
 
   useEffect(() => {

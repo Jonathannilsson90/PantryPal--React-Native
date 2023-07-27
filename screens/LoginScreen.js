@@ -26,8 +26,6 @@ const LoginScreen = () => {
         password,
       });
 
-      console.log("Response data:", response.data);
-
       const { accessToken, username: responseUsername } = response.data;
       await AsyncStorage.setItem("accessToken", accessToken);
       login(accessToken, responseUsername);

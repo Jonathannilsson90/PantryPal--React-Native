@@ -5,7 +5,7 @@ const MySavedRecipes = () => {
       <SafeAreaView style={{flex: 1}}>
          <CustomHeader />
         <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-          <Text>MySavedRecipies!</Text>
+          <Text>WIP</Text>
         </View>
         </SafeAreaView>
       );
