@@ -49,7 +49,7 @@ function GroceryListScreen() {
         return () => {
   
         };
-      }, [fetchGroceryListData])
+      }, [])
     );
   return (
     <SafeAreaView style={{ flex: 1 }}>
