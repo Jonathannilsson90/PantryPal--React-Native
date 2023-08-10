@@ -12,7 +12,7 @@ import { GenericButton } from "./GenericButton";
 import TagFlatList from "./TagFlatList";
 import { IngredientMap } from "./IngredientsMap";
 import { useState, useContext } from "react";
-import { AuthContext } from "../Contexts/AuthContext";
+import { AuthContext } from "../contexts/AuthContext";
 import api from "../api/Instance";
 
 const RecipeModal = ({ recipe, visible, onClose }) => {

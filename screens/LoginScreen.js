@@ -51,7 +51,7 @@ const LoginScreen = () => {
       <Text style={styles.sloganText}>
         Sign-up today and enjoy recipes from trusted chefs!
       </Text>
-      <View style={styles.loginwrapper}>
+      <View style={styles.loginWrapper}>
         <TextInput
           style={styles.input}
           placeholder="Username"
@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     fontFamily: "Kalam-Regular",
     fontSize: 16,
   },
-  loginwrapper: {
+  loginWrapper: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
