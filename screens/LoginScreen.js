@@ -9,7 +9,7 @@ import {
   SafeAreaView,
 } from "react-native";
 import api from "../api/Instance";
-import { AuthContext } from "../Contexts/AuthContext";
+import { AuthContext } from "../contexts/AuthContext";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { GenericButton } from "../components/GenericButton";
 import { SignupModal } from "../components/SignupModal";

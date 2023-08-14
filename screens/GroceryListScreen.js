@@ -3,7 +3,7 @@ import CustomHeader from "../components/CustomHeader";
 import RenderGroceryList from "../components/RenderGroceryList";
 import { useState, useEffect, useContext, useCallback } from "react";
 import api from "../api/Instance";
-import { AuthContext } from "../Contexts/AuthContext";
+import { AuthContext } from "../contexts/AuthContext";
 import { useFocusEffect } from "@react-navigation/native";
 
 

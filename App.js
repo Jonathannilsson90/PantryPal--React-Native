@@ -2,7 +2,7 @@ import BottomTab from './components/BottomTab';
 import { NavigationContainer } from '@react-navigation/native';
 import React, { useEffect, useState, useContext } from 'react';
 import { loadFonts } from './fonts';
-import { AuthContext, AuthProvider } from './Contexts/AuthContext';
+import { AuthContext, AuthProvider } from './contexts/AuthContext';
 import LoginScreen from './screens/LoginScreen';
 
 const AppContent = () => {

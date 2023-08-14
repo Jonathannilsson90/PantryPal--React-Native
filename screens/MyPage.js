@@ -1,7 +1,7 @@
 import { SafeAreaView, Text,View } from "react-native"
 import CustomHeader from "../components/CustomHeader";
 import { useContext } from "react";
-import { AuthContext } from "../Contexts/AuthContext";
+import { AuthContext } from "../contexts/AuthContext";
 import { Button } from "react-native";
 
 const MyPage = () => {
