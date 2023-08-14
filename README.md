@@ -13,3 +13,12 @@ The project is going to be a recipe app that helps the user to save recipes into
 ### Backend:
 
 https://github.com/Jonathannilsson90/PantryPal-Server
+
+### What I've learned:
+
+Android studios: How to use the enviroment in development and how to inspect code that is failing.
+<br>
+AsyncStorage: How to hold tokens that is recieved from the backend.
+<br>
+React Native specific modules: Modals, FlatLists, Pressabe, Text and much more!
+
