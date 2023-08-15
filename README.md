@@ -37,6 +37,3 @@ To run the PantryPal app locally, follow these steps:
 
 ### License
 This project is licensed under the [MIT License](LICENSE).
-
-### Contact
-If you have any questions or suggestions, feel free to contact me at jonathan_nilsson90@hotmail.com.
