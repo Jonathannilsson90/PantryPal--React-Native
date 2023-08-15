@@ -1,8 +1,8 @@
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import {ROOT_URL} from '@env'
 const api = axios.create({
-  baseURL: 'http://192.168.10.157:5001',
+  baseURL: ROOT_URL,
 });
 
 // Interceptor to add Authorization header to requests
