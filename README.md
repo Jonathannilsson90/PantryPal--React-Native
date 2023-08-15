@@ -1,5 +1,6 @@
 # PantryPal - The innovative recipe app
----
+
+
 ### Projects purpose:
 
 PantryPal is the innovative recipe app developed using React Native with the Expo framework. The app provides the functionality for the users to add recipies to their grocerylist to easen their shopping.
