@@ -3,7 +3,6 @@ import {
   TextInput,
   View,
   StyleSheet,
-  Button,
   Text,
   Image,
   SafeAreaView,
@@ -42,7 +41,7 @@ const LoginScreen = () => {
   };
 
   return (
-    <>
+    <SafeAreaView>
       <Image
         source={require("../assets/images/headerImg.png")}
         style={styles.logo}
@@ -74,7 +73,7 @@ const LoginScreen = () => {
         </View>
       </View>
       <SignupModal visible={modalVisible} onClose={handleCloseModal} />
-    </>
+    </SafeAreaView>
   );
 };
 
