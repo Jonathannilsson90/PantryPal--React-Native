@@ -33,7 +33,13 @@ To run the PantryPal app locally, follow these steps:
 
 1. Clone this repository.
 2. Install dependencies using `npm install`.
-3. Run the app using `expo start`
+3. Configure envirmont variables in a `.env` file.
+4. Run the app using `expo start`
+
+## Environment variables
+```
+API_URL
+```
 
 ### License
 This project is licensed under the [MIT License](LICENSE).
