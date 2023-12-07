@@ -1,5 +1,8 @@
 # PantryPal - The innovative recipe app
 
+<div style="display: flex; justify-content: center; align-items: center;">
+  <img src="./assets/pantrypal.png" alt="dashboard screen" style="height: 400px; width: 200px;">
+</div>
 
 ### Projects purpose:
 
